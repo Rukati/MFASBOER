@@ -5,68 +5,131 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-        Title="T-Test" Height="300" Width="605"
-        ResizeMode="NoResize">
+        Title="T-Test Analysis" Height="350" Width="650"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
+    <Window.Resources>
+        <!-- Стиль кнопки -->
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#79b04e" /> <!-- Цвет при наведении -->
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#388E3C" /> <!-- Цвет при нажатии -->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
+        <!-- Заголовок окна -->
+        <TextBlock Text="Настройки анализа"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#333333"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Margin="0,10,0,0" />
+
         <!-- Основная сетка -->
-        <Grid>
+        <Grid Margin="20,40,20,10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <!-- Блок для выбора файла -->
-            <Grid Grid.Row="0" Height="50" Margin="0,20,0,10">
+            <Grid Grid.Row="0" Height="50" Margin="0,10,0,10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock FontSize="15" Margin="15,0,0,0"
+                <TextBlock FontSize="15" Margin="10,0,0,0"
                            VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontWeight="SemiBold"
+                           Foreground="#333333"
                            Grid.Column="0">
-                    Файл с результатами ->
+                    Файл с результатами:
                 </TextBlock>
-                <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="270" Grid.Column="1"
-                        VerticalAlignment="Center" Margin="10,0,0,0">
+                <Border BorderBrush="#A9A9A9"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Height="30"
+                        Width="270"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="10,0,0,0"
+                        Background="White">
                     <TextBox
                         x:Name="FilePathTextBlock"
                         VerticalContentAlignment="Center"
-                        FontSize="12"/>
-                </Border>
-                <Border
-                    x:Name="OpenFile"
-                    BorderBrush="Black"
-                    BorderThickness="1"
-                    Background="Lavender"
-                    Grid.Column="2"
-                    Width="100" Height="25"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Margin="10,0,15,0"
-                    MouseDown="OpenFile_OnMouseDown"
-                    MouseEnter="OpenFile_OnMouseEnter"
-                    MouseLeave="OpenFile_OnMouseLeave">
-                    <TextBlock
                         FontSize="12"
-                        HorizontalAlignment="Center">
-                        Открыть
-                    </TextBlock>
+                        Padding="5,0"
+                        Background="Transparent"
+                        BorderThickness="0" />
                 </Border>
+                <Button Style="{StaticResource CustomButtonStyle}"
+                        Content="Открыть"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Width="100"
+                        Height="30"
+                        Grid.Column="2"
+                        Margin="10,0,15,0"
+                        Click="OpenFile_OnClick" />
             </Grid>
 
-            <!-- Блок для выбора уровня значимости -->
-            <Grid Grid.Row="1" Height="50" Margin="0,0,0,10">
+            <!-- Блок для выбора уровня значимости с переключателем -->
+            <Grid Grid.Row="1" Height="50" Margin="0,10,0,10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock FontSize="15" Margin="15,0,0,0"
+                <TextBlock FontSize="15" Margin="10,0,0,0"
                            VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontWeight="SemiBold"
+                           Foreground="#333333"
                            Grid.Column="0">
-                    Уровень значимости ->
+                    Уровень значимости:
                 </TextBlock>
                 <Border
                     Margin="20,0,0,0"
@@ -80,7 +143,7 @@
                     MouseDown="LevelBorder_OnMouseDown">
                     <Grid
                         Width="150" Height="30"
-                        Background="Lavender">
+                        Background="White">
                         <Grid x:Name="LevelGrid"
                               Background="LightBlue"
                               Width="75"
@@ -105,29 +168,23 @@
             </Grid>
 
             <!-- CheckBox для GPT -->
-            <Grid Grid.Row="2" Height="50" Margin="20,10,20,20">
-                <CheckBox Content="GPT"
+            <Grid Grid.Row="2" Height="50" Margin="0,10,0,10">
+                <CheckBox Content="Использовать информацию по GPT"
                           VerticalAlignment="Center"
                           HorizontalAlignment="Left"
-                          Margin="15,0,0,0"
-                          FontSize="15"/>
+                          Margin="10,0,0,0"
+                          FontSize="15"
+                          Foreground="#333333" />
             </Grid>
+
             <!-- Кнопка для старта -->
-            <Grid Grid.Row="3" Height="30" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                <Border
-                    x:Name="StartBorder"
-                    BorderThickness="1"
-                    BorderBrush="Black"
-                    Background="LightGreen"
-                    MouseEnter="StartBorder_OnMouseEnter"
-                    MouseLeave="StartBorder_OnMouseLeave"
-                    MouseDown="StartBorder_OnMouseDown">
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontSize="20">
-                        Start
-                    </TextBlock>
-                </Border>
+            <Grid Grid.Row="3" Margin="0,20,0,0">
+                <Button Style="{StaticResource CustomButtonStyle}"
+                        Content="Начать анализ"
+                        Width="200"
+                        Height="40"
+                        VerticalAlignment="Bottom"
+                        Click="StartAnalysis_OnClick" />
             </Grid>
         </Grid>
     </Grid>

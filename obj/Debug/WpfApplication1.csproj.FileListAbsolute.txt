@@ -18,3 +18,7 @@ Z:\C#\PrakTikA24WPF\WpfApplication1\obj\Debug\WpfApplication1.exe
 Z:\C#\PrakTikA24WPF\WpfApplication1\obj\Debug\WpfApplication1.pdb
 Z:\C#\PrakTikA24WPF\WpfApplication1\obj\Debug\Result.g.cs
 Z:\C#\PrakTikA24WPF\WpfApplication1\obj\Debug\Result.baml
+Z:\C#\PrakTikA24WPF\WpfApplication1\obj\Debug\TTestPage.baml
+Z:\C#\PrakTikA24WPF\WpfApplication1\obj\Debug\UsersPage.baml
+Z:\C#\PrakTikA24WPF\WpfApplication1\obj\Debug\TTestPage.g.cs
+Z:\C#\PrakTikA24WPF\WpfApplication1\obj\Debug\UsersPage.g.cs

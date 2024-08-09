@@ -23,38 +23,6 @@ namespace WpfApplication1
         }
 
         private OpenFileDialog fileDialog;
-        private void OpenFile_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                fileDialog = new OpenFileDialog();
-                
-                fileDialog.Title = "Выберите файл";
-                fileDialog.Filter = "All Files|*.*"; 
-
-        
-                bool? result = fileDialog.ShowDialog();
-
-                if (result == true)
-                {
-                    FilePathTextBlock.Text = fileDialog.FileName;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Произошла ошибка при открытии файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void OpenFile_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            OpenFile.Background = Brushes.LightBlue;
-        }
-
-        private void OpenFile_OnMouseLeave(object sender, MouseEventArgs e)
-        {
-            OpenFile.Background = Brushes.Lavender;
-        }
 
         private void LevelBorder_OnMouseDown(object sender, MouseEventArgs e)
         {
@@ -94,17 +62,7 @@ namespace WpfApplication1
             }
         }
 
-        private void StartBorder_OnMouseEnter(object sender, MouseEventArgs e)
-        {
-            StartBorder.Background = Brushes.Green;
-        }
-
-        private void StartBorder_OnMouseLeave(object sender, MouseEventArgs e)
-        {
-            StartBorder.Background = Brushes.LightGreen;
-        }
-
-        private void StartBorder_OnMouseDown(object sender, MouseButtonEventArgs e)
+        private void StartAnalysis_OnClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -114,6 +72,28 @@ namespace WpfApplication1
             catch (Exception ex)
             {
                 MessageBox.Show($"Произошла ошибка при выполнении теста: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void OpenFile_OnClick(object sender, RoutedEventArgs e)
+        {  try
+            {
+                fileDialog = new OpenFileDialog();
+                
+                fileDialog.Title = "Выберите файл";
+                fileDialog.Filter = "All Files|*.*"; 
+
+        
+                bool? result = fileDialog.ShowDialog();
+
+                if (result == true)
+                {
+                    FilePathTextBlock.Text = fileDialog.FileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Произошла ошибка при открытии файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

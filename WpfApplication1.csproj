@@ -54,6 +54,9 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="UsersPage.xaml.cs">
+          <DependentUpon>UsersPage.xaml</DependentUpon>
+        </Compile>
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
@@ -67,10 +70,15 @@
             <SubType>Code</SubType>
         </Compile>
         <Page Include="Result.xaml" />
+        <Page Include="TTestPage.xaml" />
+        <Page Include="UsersPage.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Result.xaml.cs">
           <DependentUpon>Result.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="TTestPage.xaml.cs">
+          <DependentUpon>TTestPage.xaml</DependentUpon>
         </Compile>
         <Compile Include="T_Test.cs" />
         <Compile Include="Properties\AssemblyInfo.cs">
