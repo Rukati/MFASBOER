@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using MathNet.Numerics;
 
 namespace WpfApplication1
 {
@@ -14,19 +15,11 @@ namespace WpfApplication1
 
         private void LoadUserData()
         {
-            // Проверяем, есть ли данные в словаре
-            if (T_Test.userResponses == null || !T_Test.userResponses.Any())
-            {
-                UsersDataGrid.ItemsSource = new List<UserDataRow>(); // Пустой список, если данных нет
-                return;
-            }
-
-            // Преобразуем словарь в список для отображения
+            
             var data = T_Test.userResponses.Select(user => new UserDataRow
             {
                 Name = user.Key,
-                Accuracy = CalculateAccuracy(user.Value),
-                GptAccuracy = CalculateGptAccuracy(user.Value)
+                Accuracy = CalculateAccuracy(user.Value).ToString("F4") // Форматирование до 4 знаков после запятой
             }).ToList();
 
             UsersDataGrid.ItemsSource = data;
@@ -51,7 +44,6 @@ namespace WpfApplication1
     public class UserDataRow
     {
         public string Name { get; set; }
-        public double Accuracy { get; set; }
-        public double GptAccuracy { get; set; }
+        public string Accuracy { get; set; }
     }
 }

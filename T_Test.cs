@@ -30,16 +30,28 @@ namespace WpfApplication1
                     while ((line = streamReader.ReadLine()) != null)
                     {
                         string[] values = line.Split(';');
-                        string user = values[1];
-                        int Predicted = values[3] == "Да" ? 1 : (values[3] == "Нет" ? 0 : -1);
-                        int Actual = int.Parse(values[4]);
 
+                        string user = values[1];
+                        
+                        int Actual = int.Parse(values[4]);
+                        int Predicted;
+                        
+                        if (MainWindow.UsePredict == "Users")
+                        {
+                            Predicted = values[3] == "Да" ? 1 : (values[3] == "Нет" ? 0 : -1);
+                        }
+                        else
+                        {
+                            Predicted = values[6].Contains("модель корректно определила") ? 1 : 0;
+                        }
+                        
                         if (Predicted != -1)
                         {
                             if (!userResponses.ContainsKey(user))
                             {
                                 userResponses[user] = new List<(int Predicted, int Actual)>();
                             }
+
                             userResponses[user].Add((Predicted, Actual));
                             count++;
                         }

@@ -167,14 +167,54 @@
                 </Border>
             </Grid>
 
-            <!-- CheckBox для GPT -->
+            <!-- Блок для выбора уровня значимости с переключателем -->
             <Grid Grid.Row="2" Height="50" Margin="0,10,0,10">
-                <CheckBox Content="Использовать информацию по GPT"
-                          VerticalAlignment="Center"
-                          HorizontalAlignment="Left"
-                          Margin="10,0,0,0"
-                          FontSize="15"
-                          Foreground="#333333" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="15" Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontWeight="SemiBold"
+                           Foreground="#333333"
+                           Grid.Column="0">
+                    Использовать предсказания:
+                </TextBlock>
+                <Border
+                    Margin="20,0,0,0"
+                    x:Name="PredictBorder"
+                    Background="Transparent"
+                    BorderBrush="Black" BorderThickness="1"
+                    Grid.Column="1"
+                    Width="175" Height="30"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    MouseDown="LevelBorder_OnMouseDown">
+                    <Grid
+                        Width="175" Height="30"
+                        Background="White">
+                        <Grid x:Name="PredictGrid"
+                              Background="LightBlue"
+                              Width="100"
+                              HorizontalAlignment="Left">
+                        </Grid>
+                        <Grid
+                            Width="100"
+                            HorizontalAlignment="Left">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                                Пользователи
+                            </TextBlock>
+                        </Grid>
+                        <Grid
+                            Width="75"
+                            HorizontalAlignment="Right">
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                                GPT
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+                </Border>
             </Grid>
 
             <!-- Кнопка для старта -->

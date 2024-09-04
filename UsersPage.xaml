@@ -14,11 +14,11 @@
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   CanUserResizeColumns="True"
-                  CanUserResizeRows="False">
+                  CanUserResizeRows="False"
+                  FontSize="16">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*" />
                 <DataGridTextColumn Header="Точность" Binding="{Binding Accuracy}" Width="*" />
-                <DataGridTextColumn Header="Точность (GPT)" Binding="{Binding GptAccuracy}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

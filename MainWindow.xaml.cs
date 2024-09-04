@@ -16,6 +16,7 @@ namespace WpfApplication1
     {
         public static string filePath;
         static public double significance_level = 0.01;
+        static public string UsePredict = "Users";
 
         public MainWindow()
         {
@@ -26,39 +27,91 @@ namespace WpfApplication1
 
         private void LevelBorder_OnMouseDown(object sender, MouseEventArgs e)
         {
-            try
+            if (((Border)sender).Name == "PredictBorder")
             {
-                ThicknessAnimation moveRightAnimation = new ThicknessAnimation
+                try
                 {
-                    From = LevelGrid.Margin,
-                    Duration = new Duration(TimeSpan.FromSeconds(0.25)) // Длительность анимации
-                };
+                    ThicknessAnimation moveRightAnimation = new ThicknessAnimation
+                    {
+                        From = PredictGrid.Margin,
+                        Duration = new Duration(TimeSpan.FromSeconds(0.25)) // Длительность анимации
+                    };
+                    DoubleAnimation widthAnimation = new DoubleAnimation
+                    {
+                        Duration = new Duration(TimeSpan.FromSeconds(0.25)) 
+                    };
+                    
+                    if (UsePredict == "Users")
+                    {
+                        moveRightAnimation.To = new Thickness(100, 0, 0, 0); // Новое значение Margin
+                        widthAnimation.To = 75;
+                        UsePredict = "GPT";
+                    }
+                    else
+                    {
+                        moveRightAnimation.To = new Thickness(0, 0, 0, 0); // Новое значение Margin
+                        widthAnimation.To = 100;
+                        UsePredict = "Users";
+                    }
 
-                if (significance_level == 0.01)
-                {
-                    moveRightAnimation.To = new Thickness(75, 0, 0, 0); // Новое значение Margin
-                    significance_level = 0.05;
+                    // Создаем Storyboard и добавляем анимацию
+                    Storyboard storyboard = new Storyboard();
+                    storyboard.Children.Add(moveRightAnimation);
+                    storyboard.Children.Add(widthAnimation);
+
+                    // Устанавливаем цель анимации
+                    Storyboard.SetTarget(moveRightAnimation, PredictGrid);
+                    Storyboard.SetTargetProperty(moveRightAnimation, new PropertyPath(Grid.MarginProperty));
+                    
+                    Storyboard.SetTarget(widthAnimation, PredictGrid);
+                    Storyboard.SetTargetProperty(widthAnimation, new PropertyPath(Grid.WidthProperty));
+
+                    // Запускаем анимацию
+                    storyboard.Begin();
                 }
-                else
+                catch (Exception ex)
                 {
-                    moveRightAnimation.To = new Thickness(0, 0, 0, 0); // Новое значение Margin
-                    significance_level = 0.01;
+                    MessageBox.Show($"Произошла ошибка при выборе предсказания: {ex.Message}", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
-                // Создаем Storyboard и добавляем анимацию
-                Storyboard storyboard = new Storyboard();
-                storyboard.Children.Add(moveRightAnimation);
-
-                // Устанавливаем цель анимации
-                Storyboard.SetTarget(moveRightAnimation, LevelGrid);
-                Storyboard.SetTargetProperty(moveRightAnimation, new PropertyPath(Grid.MarginProperty));
-
-                // Запускаем анимацию
-                storyboard.Begin();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Произошла ошибка при изменении уровня значимости: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    ThicknessAnimation moveRightAnimation = new ThicknessAnimation
+                    {
+                        From = LevelGrid.Margin,
+                        Duration = new Duration(TimeSpan.FromSeconds(0.25)) // Длительность анимации
+                    };
+
+                    if (significance_level == 0.01)
+                    {
+                        moveRightAnimation.To = new Thickness(75, 0, 0, 0); // Новое значение Margin
+                        significance_level = 0.05;
+                    }
+                    else
+                    {
+                        moveRightAnimation.To = new Thickness(0, 0, 0, 0); // Новое значение Margin
+                        significance_level = 0.01;
+                    }
+
+                    // Создаем Storyboard и добавляем анимацию
+                    Storyboard storyboard = new Storyboard();
+                    storyboard.Children.Add(moveRightAnimation);
+
+                    // Устанавливаем цель анимации
+                    Storyboard.SetTarget(moveRightAnimation, LevelGrid);
+                    Storyboard.SetTargetProperty(moveRightAnimation, new PropertyPath(Grid.MarginProperty));
+
+                    // Запускаем анимацию
+                    storyboard.Begin();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Произошла ошибка при изменении уровня значимости: {ex.Message}", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
