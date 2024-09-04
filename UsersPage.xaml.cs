@@ -31,14 +31,6 @@ namespace WpfApplication1
             int totalPredictions = responses.Count;
             return totalPredictions > 0 ? (double)correctPredictions / totalPredictions : 0;
         }
-
-        private double CalculateGptAccuracy(List<(int Predicted, int Actual)> responses)
-        {
-            // Пример расчета, замените на вашу логику для GPT
-            int correctPredictions = responses.Count(response => response.Predicted == response.Actual);
-            int totalPredictions = responses.Count;
-            return totalPredictions > 0 ? (double)correctPredictions / totalPredictions : 0;
-        }
     }
 
     public class UserDataRow
